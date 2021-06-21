@@ -1,0 +1,25 @@
+{
+  "name": "Exams",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "node-notifier": "^10.0.0",
+    "yargs": "^17.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronniemacapobre/node-masters.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ronniemacapobre/node-masters/issues"
+  },
+  "homepage": "https://github.com/ronniemacapobre/node-masters#readme"
+}

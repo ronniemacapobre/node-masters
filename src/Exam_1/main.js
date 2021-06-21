@@ -54,6 +54,7 @@ class LoanCalculator {
 
   getMonthlyInstallment() {
     const bank = this.getBank();
+    console.log(bank);
     return bank.getMonthlyInstallment(this.loanTerm);
   }
 }
