@@ -51,28 +51,4 @@ module.exports = class FileWatcher extends EventEmitter {
       console.log(error);
     }
   };
-
-  //   await fs.watch(
-  //     this.directoryPath,
-  //     { recursive: true },
-  //     (eventType, filename) => {
-  //       if (isBusy || eventType === 'rename') return;
-  //       isBusy = true;
-  //       setTimeout(async () => {
-  //         const fullPath = path.join(this.directoryPath, filename);
-  //         const fileStatus = await fs.lstat(fullPath);
-
-  //         if (!fileStatus.isDirectory()) {
-  //           this.searchContent();
-  //         } else {
-  //           console.log('Directory');
-  //         }
-
-  //         this.validateName(filename);
-  //         isBusy = false;
-  //       }, 2000);
-  //     }
-  //   );
-  // };
-  //};
 };
