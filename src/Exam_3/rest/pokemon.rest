@@ -77,7 +77,7 @@ Content-Type: application/json
 }
 
 ### Update - Update fail, type property is missing
-PUT http://localhost:3000/servants?name=Milotic
+PUT http://localhost:3000/pokemons?name=Milotic
 Content-Type: application/json
 
 {
