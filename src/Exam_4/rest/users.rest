@@ -1,0 +1,99 @@
+### Get user by username
+GET http://localhost:3000/users/user/testuser
+
+### Get user by email address
+GET http://localhost:3000/users/user/email/testemail@email.com
+
+### Get user with non-existing username
+GET http://localhost:3000/users/user/nonexistinguser
+
+### Get user with non-existing email address
+GET http://localhost:3000/users/user/email/nonexisting@email.com
+
+### Create user with invalid email address
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{ 
+    "username": "testuser",
+	"emailAddress": "testuser.com"
+}
+
+### Create user with existing username
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{ 
+    "username": "testuser",
+	"emailAddress": "tesuse@ruser.com"
+}
+
+### Create user with existing email address
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{ 
+    "username": "testuser",
+	"emailAddress": "testemail@email.com"
+}
+
+
+### Create user with valid username and email address
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{ 
+    "username": "testuser1",
+	"emailAddress": "testuser1@email.com"
+}
+
+### Update user with username not exist
+PUT http://localhost:3000/users/user/nonexistinguser
+Content-Type: application/json
+
+{
+    "emailAddress": "newtestuser@email.com"
+}
+
+### Update user with existing username in the body
+PUT http://localhost:3000/users/user/testuser1
+Content-Type: application/json
+
+{
+    "username": "testuser1",
+    "emailAddress": "newtestuser@email.com"
+}
+
+### Update user with invalid email format in the body
+PUT http://localhost:3000/users/user/testuser1
+Content-Type: application/json
+
+{
+    "emailAddress": "newtestuseremail.com"
+}
+
+### Update user with already existing email
+PUT http://localhost:3000/users/user/testuser
+Content-Type: application/json
+
+{
+    "emailAddress": "testuser1@email.com"
+}
+
+### Update user with non-existing email
+PUT http://localhost:3000/users/user/testuser1
+Content-Type: application/json
+
+{
+    "emailAddress": "testuser2@email.com"
+}
+
+### Delete user that does not exist
+DELETE http://localhost:3000/users/user/nonexistinguser
+
+### Delete user that does not exist
+DELETE http://localhost:3000/users/user/testuser1
+
+### Delete user that does not exist
+GET http://localhost:3000/users/user123
+

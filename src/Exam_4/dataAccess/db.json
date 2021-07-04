@@ -1,0 +1,9 @@
+{
+  "users": [
+    {
+      "id": "4f9c7738-ddbd-40bc-a53d-2e127084de3f",
+      "username": "testuser",
+      "emailAddress": "testemail@email.com"
+    }
+  ]
+}
