@@ -1,6 +1,8 @@
 class Attendance {
-  constructor(attendanceId, timeIn, timeOut = null) {
+  constructor({ attendanceId, eventId, memberId, timeIn, timeOut = null }) {
     this.attendanceId = attendanceId;
+    this.eventId = eventId;
+    this.memberId = memberId;
     this.timeIn = timeIn;
     this.timeOut = timeOut;
   }

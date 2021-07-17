@@ -16,7 +16,7 @@ class DataAccess {
   async getAll() {
     const dbContext = await this.dbContext;
 
-    return dbContext.get(this.tableName);
+    return dbContext.get(this.tableName).value();
   }
 
   async getById(id) {
@@ -31,6 +31,15 @@ class DataAccess {
     return dbContext
       .get(this.tableName)
       .find({ [propName]: propValue })
+      .value();
+  }
+
+  async filterByAny({ propName, propValue }) {
+    const dbContext = await this.dbContext;
+
+    return dbContext
+      .get(this.tableName)
+      .filter((e) => e[propName] === propValue)
       .value();
   }
 

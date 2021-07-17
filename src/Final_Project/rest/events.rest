@@ -1,2 +1,5 @@
 ### Get all events
 GET http://localhost:3000/events/events
+
+### Get event by id
+GET http://localhost:3000/events/events/828b2004-bc3c-4ed5-aeee-f8620c5520bd

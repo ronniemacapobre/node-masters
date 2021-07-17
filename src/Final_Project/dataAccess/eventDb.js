@@ -7,18 +7,17 @@ class EventDataAccess extends DataAccess {
   }
 
   async getAllEvents() {
-    const events = await this.getAll().map(
-      (e) =>
-        new Event(
-          e.eventId,
-          e.eventName,
-          e.eventType,
-          e.startDateTime,
-          e.endDateTime
-        )
-    );
-
+    const data = await this.getAll();
+    const events = data.map((event) => new Event(event));
     return events;
+  }
+
+  async getEventById(eventId) {
+    const event = await this.getByAny({
+      propName: 'eventId',
+      propValue: eventId,
+    });
+    return new Event(event);
   }
 }
 
