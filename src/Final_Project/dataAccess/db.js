@@ -5,8 +5,9 @@ const dbAsync = lowdb(new FileAsync(path.join(__dirname, 'db.json')));
 const { v4: uuid } = require('uuid');
 
 class DataAccess {
-  constructor(tableName) {
+  constructor(tableName, tableIdFieldName) {
     this.tableName = tableName;
+    this.tableIdFieldName = tableIdFieldName;
     this.dbContext = dbAsync.then((db) => {
       db.defaults({ [tableName]: [] }).write();
       return db;
@@ -19,10 +20,13 @@ class DataAccess {
     return dbContext.get(this.tableName).value();
   }
 
-  async getById(id) {
+  async getById({ propIdName, id }) {
     const dbContext = await this.dbContext;
 
-    return dbContext.get(this.tableName).find({ id }).value();
+    return dbContext
+      .get(this.tableName)
+      .find({ [propIdName]: id })
+      .value();
   }
 
   async getByAny({ propName, propValue }) {
@@ -43,19 +47,19 @@ class DataAccess {
       .value();
   }
 
-  async insert(data) {
+  async create({ propIdName, data }) {
     const dbContext = await this.dbContext;
     const id = uuid();
 
     dbContext
       .get(this.tableName)
       .push({
-        id,
+        [propIdName]: id,
         ...data,
       })
       .write();
 
-    return this.getById(id);
+    return this.getById({ propIdName, id });
   }
 
   async update(id, data) {
@@ -64,10 +68,13 @@ class DataAccess {
     dbContext.get(this.tableName).find({ id }).assign(data).write();
   }
 
-  async delete(id) {
+  async delete({ propIdName, propValue }) {
     const dbContext = await this.dbContext;
 
-    dbContext.get(this.tableName).remove({ id }).write();
+    dbContext
+      .get(this.tableName)
+      .remove({ [propIdName]: propValue })
+      .write();
   }
 }
 

@@ -19,6 +19,15 @@ class EventDataAccess extends DataAccess {
     });
     return new Event(event);
   }
+
+  async createEvent(data) {
+    const newEvent = await this.create({
+      propIdName: 'eventId',
+      data,
+    });
+
+    return newEvent;
+  }
 }
 
 module.exports = new EventDataAccess();

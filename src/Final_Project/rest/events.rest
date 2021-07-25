@@ -1,5 +1,64 @@
 ### Get all events
-GET http://localhost:3000/events/events
+GET http://localhost:3000/events
 
 ### Get event by id
-GET http://localhost:3000/events/events/828b2004-bc3c-4ed5-aeee-f8620c5520bd
+GET http://localhost:3000/events/828b2004-bc3c-4ed5-aeee-f8620c5520bd
+
+### Add Event with invalid start date
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "eventName": "Angular Masters",
+    "eventType": "Online",
+    "startDateTime": "ABC",
+    "endDateTime": "2021-08-05 10:30:00"
+}
+
+### Add Event with invalid end date
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "eventName": "Angular Masters",
+    "eventType": "Online",
+    "startDateTime": "2021-08-05 10:30:00",
+    "endDateTime": "DEF"
+}
+
+### Add Event with missing eventName and eventType
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "startDateTime": "2021-08-05 10:30:00",
+    "endDateTime": "2021-09-05 10:30:00"
+}
+
+### Add New Event with start date later than end date
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "eventName": "Angular Masters",
+    "eventType": "Online",
+    "startDateTime": "2021-09-05 09:00:00",
+    "endDateTime": "2021-08-05 10:30:00"
+}
+
+### Add New Event 
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "eventName": "Vue Masters",
+    "eventType": "Online",
+    "startDateTime": "2021-07-05 09:00:00",
+    "endDateTime": "2021-08-05 10:30:00"
+}
+
+### Delete event with member attendance
+DELETE http://localhost:3000/events/8790529d-8ee5-4d78-8017-544f8ae34743
+
+### Delete event without member attendance
+DELETE http://localhost:3000/events/63af7d1c-ced3-4ad4-a1b7-d04b9c6eb09f
