@@ -51,7 +51,7 @@ const getEventById = async (req, res) => {
   res.status(200).send(event);
 };
 
-const addEvent = async (req, res) => {
+const createEvent = async (req, res) => {
   try {
     const payload = req.body;
     const newEvent = await eventDataAccess.createEvent(payload);
@@ -76,7 +76,7 @@ const deleteEvent = async (req, res) => {
         `Unable to delete Event: ${event.eventName} because there are member attendance in it.`
       );
 
-  //await eventDataAccess.deleteEvent(eventId);
+  await eventDataAccess.delete(eventId);
 
   res.status(200).send();
 };
@@ -84,6 +84,6 @@ const deleteEvent = async (req, res) => {
 module.exports = {
   getAllEvents,
   getEventById,
-  addEvent,
+  createEvent,
   deleteEvent,
 };

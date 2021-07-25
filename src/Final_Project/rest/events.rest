@@ -61,4 +61,4 @@ Content-Type: application/json
 DELETE http://localhost:3000/events/8790529d-8ee5-4d78-8017-544f8ae34743
 
 ### Delete event without member attendance
-DELETE http://localhost:3000/events/63af7d1c-ced3-4ad4-a1b7-d04b9c6eb09f
+DELETE http://localhost:3000/events/5dcacc40-cb38-4d63-8af2-613d62205bab

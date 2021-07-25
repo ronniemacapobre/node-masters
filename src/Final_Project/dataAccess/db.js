@@ -20,12 +20,12 @@ class DataAccess {
     return dbContext.get(this.tableName).value();
   }
 
-  async getById({ propIdName, id }) {
+  async getById(id) {
     const dbContext = await this.dbContext;
 
     return dbContext
       .get(this.tableName)
-      .find({ [propIdName]: id })
+      .find({ [this.tableIdFieldName]: id })
       .value();
   }
 
@@ -47,19 +47,19 @@ class DataAccess {
       .value();
   }
 
-  async create({ propIdName, data }) {
+  async create(data) {
     const dbContext = await this.dbContext;
     const id = uuid();
 
     dbContext
       .get(this.tableName)
       .push({
-        [propIdName]: id,
+        [this.tableIdFieldName]: id,
         ...data,
       })
       .write();
 
-    return this.getById({ propIdName, id });
+    return this.getById(id);
   }
 
   async update(id, data) {
@@ -68,12 +68,12 @@ class DataAccess {
     dbContext.get(this.tableName).find({ id }).assign(data).write();
   }
 
-  async delete({ propIdName, propValue }) {
+  async delete(id) {
     const dbContext = await this.dbContext;
 
     dbContext
       .get(this.tableName)
-      .remove({ [propIdName]: propValue })
+      .remove({ [this.tableIdFieldName]: id })
       .write();
   }
 }

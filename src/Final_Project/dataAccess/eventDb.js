@@ -3,7 +3,7 @@ const { Event } = require('../models');
 
 class EventDataAccess extends DataAccess {
   constructor() {
-    super('events');
+    super('events', 'eventId');
   }
 
   async getAllEvents() {
@@ -13,20 +13,13 @@ class EventDataAccess extends DataAccess {
   }
 
   async getEventById(eventId) {
-    const event = await this.getByAny({
-      propName: 'eventId',
-      propValue: eventId,
-    });
-    return new Event(event);
+    const event = await this.getById(eventId);
+    return event ? new Event(event) : null;
   }
 
   async createEvent(data) {
-    const newEvent = await this.create({
-      propIdName: 'eventId',
-      data,
-    });
-
-    return newEvent;
+    const event = await this.create(data);
+    return new Event(event);
   }
 }
 

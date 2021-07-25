@@ -1,25 +1,11 @@
 {
   "events": [
     {
-      "eventId": "8790529d-8ee5-4d78-8017-544f8ae34743",
-      "eventName": "Node JS Masters - Batch 4",
-      "eventType": "Classroom",
-      "startDateTime": "2021-07-30T00:00:00.000Z",
-      "endDateTime": "2021-09-30T00:00:00.000Z"
-    },
-    {
       "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
       "eventName": "SQL 4 Devs Masters - Batch 4",
       "eventType": "Classroom",
       "startDateTime": "2021-08-05T00:00:00.000Z",
       "endDateTime": "2021-10-05T00:00:00.000Z"
-    },
-    {
-      "eventId": "63af7d1c-ced3-4ad4-a1b7-d04b9c6eb09f",
-      "eventName": "Vue Masters",
-      "eventType": "Online",
-      "startDateTime": "2021-07-05 09:00:00",
-      "endDateTime": "2021-08-05 10:30:00"
     }
   ],
   "attendances": [

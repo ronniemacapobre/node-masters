@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator');
 const {
-  eventController: { getAllEvents, getEventById, addEvent, deleteEvent },
+  eventController: { getAllEvents, getEventById, createEvent, deleteEvent },
 } = require('../controllers');
 const eventValidator = require('../validators/event.validator');
 
@@ -13,7 +13,7 @@ router.post(
   '/',
   eventValidator.validationBodyRules,
   eventValidator.checkRules,
-  addEvent
+  createEvent
 );
 router.delete('/:id', check('id').notEmpty(), deleteEvent);
 
