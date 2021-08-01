@@ -21,6 +21,28 @@ class EventDataAccess extends DataAccess {
     const event = await this.create(data);
     return new Event(event);
   }
+
+  async searchEvents(eventName, dateStart, dateEnd) {
+    const allEvents = await this.getAllEvents();
+    let filteredEvents = [...allEvents];
+
+    console.log(eventName, dateStart, dateEnd);
+
+    if (eventName)
+      filteredEvents = filteredEvents.filter((e) =>
+        e.eventName.toLowerCase().includes(eventName.toLowerCase())
+      );
+
+    if (dateStart)
+      filteredEvents = filteredEvents.filter(
+        (e) => e.startDateTime >= dateStart
+      );
+
+    if (dateEnd)
+      filteredEvents = filteredEvents.filter((e) => e.endDateTime <= dateEnd);
+
+    return filteredEvents;
+  }
 }
 
 module.exports = new EventDataAccess();

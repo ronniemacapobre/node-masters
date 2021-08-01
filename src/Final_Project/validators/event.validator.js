@@ -1,6 +1,15 @@
-const { body, validationResult, check } = require('express-validator');
-const { getEventById } = require('../controllers/eventController');
-const { parseDateTime } = require('../utilities/helpers');
+const { body, validationResult, query, check } = require('express-validator');
+const { parseDateTime, parseDate } = require('../utilities/helpers');
+
+const isDateSearchValid = (dateValue) => {
+  // Ignore validation if nothing to validate
+  if (!dateValue) return true;
+
+  // Parse the date
+  const date = parseDate(dateValue, false);
+
+  return date && !isNaN(date);
+};
 
 exports.validationBodyRules = [
   body('eventName')
@@ -47,6 +56,32 @@ exports.validationBodyRules = [
 
       return true;
     }),
+];
+
+exports.searchEventValidation = [
+  query('dateStart')
+    .custom((value) => isDateSearchValid(value))
+    .withMessage('Please use this date format: YYYY_MM_DD'),
+  query('dateEnd')
+    .custom((value) => isDateSearchValid(value))
+    .withMessage('Please use this date format: YYYY_MM_DD'),
+  query().custom((value) => {
+    const { eventName, dateStart, dateEnd } = value;
+
+    // Don't allow search with no criteria
+    if (!eventName && !dateStart && !dateEnd)
+      throw new Error(
+        'Please check if any of the ff criteria has been provided: eventName, dateStart, dateEnd.'
+      );
+
+    let isDateStartValid = true;
+    if (dateStart) isDateStartValid = isDateSearchValid(dateStart);
+
+    let isDateEndValid = true;
+    if (isDateEndValid) isDateEndValid = isDateSearchValid(dateEnd);
+
+    return isDateStartValid && isDateEndValid;
+  }),
 ];
 
 exports.checkRules = (req, res, next) => {

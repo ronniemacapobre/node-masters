@@ -1,11 +1,18 @@
 {
   "events": [
     {
+      "eventId": "8790529d-8ee5-4d78-8017-544f8ae34743",
+      "eventName": "Node JS Masters - Batch 4",
+      "eventType": "Classroom",
+      "startDateTime": "2021-07-30 00:00:00",
+      "endDateTime": "2021-09-30 00:00:00"
+    },
+    {
       "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
       "eventName": "SQL 4 Devs Masters - Batch 4",
       "eventType": "Classroom",
-      "startDateTime": "2021-08-05T00:00:00.000Z",
-      "endDateTime": "2021-10-05T00:00:00.000Z"
+      "startDateTime": "2021-07-05 09:00:00",
+      "endDateTime": "2021-08-05 10:30:00"
     }
   ],
   "attendances": [
@@ -13,32 +20,32 @@
       "attendanceId": "41195313-36e5-4da6-adff-1b0afb9fa347",
       "memberId": "50d1821b-0c61-4667-b324-bad5998b1111",
       "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
-      "timeIn": "2021-08-05T01:00:00.000Z"
+      "timeIn": "2021-08-05 01:00:00"
     },
     {
       "attendanceId": "2278f358-4e63-4516-9460-d9486dc0f6c2",
       "memberId": "43f26ff5-3245-4345-aa10-9b57b15e9450",
       "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
-      "timeIn": "2021-08-05T01:40:00.000Z"
+      "timeIn": "2021-08-05 01:40:00"
     },
     {
       "attendanceId": "61b56be8-a16f-471d-aabf-f878fa67e36c",
       "eventId": "8790529d-8ee5-4d78-8017-544f8ae34743",
       "memberId": "50d1821b-0c61-4667-b324-bad5998b1111",
-      "timeIn": "2021-08-05T04:40:00.000Z"
+      "timeIn": "2021-08-05 04:40:00"
     }
   ],
   "members": [
     {
       "memberId": "43f26ff5-3245-4345-aa10-9b57b15e9450",
       "name": "Ronnie",
-      "joinedDate": "2011-07-07T00:00:00.000Z",
+      "joinedDate": "2011-07-07 00:00:00",
       "status": "active"
     },
     {
       "memberId": "50d1821b-0c61-4667-b324-bad5998b1111",
       "name": "John",
-      "joinedDate": "2019-01-03T00:00:00.000Z",
+      "joinedDate": "2019-01-03 00:00:00",
       "status": "active"
     }
   ]

@@ -3,8 +3,8 @@ class Event {
     this.eventId = eventId;
     this.eventName = eventName;
     this.eventType = eventType;
-    this.startDateTime = startDateTime;
-    this.endDateTime = endDateTime;
+    this.startDateTime = startDateTime ? new Date(startDateTime) : null;
+    this.endDateTime = endDateTime ? new Date(endDateTime) : null;
     this.memberAttendances = [];
   }
 }

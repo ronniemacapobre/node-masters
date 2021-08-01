@@ -1,20 +1,38 @@
 const express = require('express');
-const { check } = require('express-validator');
+const { check, body, oneOf, query } = require('express-validator');
 const {
-  eventController: { getAllEvents, getEventById, createEvent, deleteEvent },
+  eventController: {
+    getAllEvents,
+    getEventById,
+    createEvent,
+    updateEvent,
+    deleteEvent,
+    searchEvents,
+  },
 } = require('../controllers');
-const eventValidator = require('../validators/event.validator');
+const {
+  validationBodyRules,
+  checkRules,
+  searchEventValidation,
+} = require('../validators/event.validator');
 
 const router = express.Router();
 
+router.get('/search', searchEventValidation, checkRules, searchEvents);
 router.get('/', getAllEvents);
 router.get('/:id', getEventById);
-router.post(
-  '/',
-  eventValidator.validationBodyRules,
-  eventValidator.checkRules,
-  createEvent
+router.post('/', validationBodyRules, checkRules, createEvent);
+router.put(
+  '/:eventId',
+  body('eventId')
+    .exists()
+    .withMessage('Event Id is required')
+    .notEmpty()
+    .withMessage('Event Id is required'),
+  validationBodyRules,
+  checkRules,
+  updateEvent
 );
-router.delete('/:id', check('id').notEmpty(), deleteEvent);
+router.delete('/:id', check('id').not().isEmpty(), deleteEvent);
 
 module.exports = router;

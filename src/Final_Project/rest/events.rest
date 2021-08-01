@@ -53,12 +53,82 @@ Content-Type: application/json
 {
     "eventName": "Vue Masters",
     "eventType": "Online",
+    "startDateTime": "2021-07-26 15:00:00",
+    "endDateTime": "2021-12-26 16:30:00"
+}
+
+### Delete event with member attendance (Node JS Masters - Batch 4)
+DELETE http://localhost:3000/events/8790529d-8ee5-4d78-8017-544f8ae34743
+
+### Delete event without member attendance (use guid from Vue Masters)
+DELETE http://localhost:3000/events/<Vue GUID>
+
+### Update Event with missing eventId
+PUT http://localhost:3000/events/828b2004-bc3c-4ed5-aeee-f8620c5520bd
+Content-Type: application/json
+
+{
+    "eventName": "SQL 4 Devs Masters - Batch 4",
+    "eventType": "Online",
     "startDateTime": "2021-07-05 09:00:00",
     "endDateTime": "2021-08-05 10:30:00"
 }
 
-### Delete event with member attendance
-DELETE http://localhost:3000/events/8790529d-8ee5-4d78-8017-544f8ae34743
+### Update Event with missing startDateTime
+PUT http://localhost:3000/events/828b2004-bc3c-4ed5-aeee-f8620c5520bd
+Content-Type: application/json
 
-### Delete event without member attendance
-DELETE http://localhost:3000/events/5dcacc40-cb38-4d63-8af2-613d62205bab
+{
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "eventName": "SQL 4 Devs Masters - Batch 4",
+    "eventType": "Online",
+    "endDateTime": "2021-08-05 10:30:00"
+}
+
+### Update Event with earlier startDateTime than endDateTime
+PUT http://localhost:3000/events/828b2004-bc3c-4ed5-aeee-f8620c5520bd
+Content-Type: application/json
+
+{
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "eventName": "SQL 4 Devs Masters - Batch 4",
+    "eventType": "Online",
+    "startDateTime": "2021-08-05 10:30:00",
+    "endDateTime": "2021-07-05 09:00:00"
+}
+
+### Update SQL 4 Devs' eventType to "Online" and dates
+PUT http://localhost:3000/events/828b2004-bc3c-4ed5-aeee-f8620c5520bd
+Content-Type: application/json
+
+{
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "eventName": "SQL 4 Devs Masters",
+    "eventType": "Online",
+    "startDateTime": "2022-07-05 09:00:00",
+    "endDateTime": "2022-08-05 10:30:00"
+}
+
+### Search Events with complete and valid criteria (name, start date and end date)
+GET http://localhost:3000/events/search?eventName=master&dateStart=2021_07_04&dateEnd=2021_08_10
+
+### Search Events with valid start and end date
+GET http://localhost:3000/events/search?dateStart=2021_07_01&dateEnd=2021_08_01
+
+### Search Events with event name only
+GET http://localhost:3000/events/search?eventName=master
+
+### Search Events with start date only
+GET http://localhost:3000/events/search?dateStart=2021_07_01
+
+### Search Events with end date only
+GET http://localhost:3000/events/search?dateEnd=2021_08_10
+
+### Search Events with invalid start date will return an error
+GET http://localhost:3000/events/search?dateStart=ABC
+
+### Search Events with invalid end date will return an error
+GET http://localhost:3000/events/search?dateEnd=ABC
+
+### Search Events with invalid criteria should return an error
+GET http://localhost:3000/events/search?dateEnd=ABC

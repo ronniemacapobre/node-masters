@@ -1,9 +1,9 @@
-const { validationResult } = require('express-validator');
 const {
   eventDataAccess,
   attendanceDataAccess,
   memberDataAccess,
 } = require('../dataAccess');
+const { parseDate } = require('../utilities/helpers');
 
 const getMemberAttendances = async (eventId) => {
   // Get Attendances of the Event
@@ -61,6 +61,13 @@ const createEvent = async (req, res) => {
   }
 };
 
+const updateEvent = async (req, res) => {
+  const eventId = req.params.eventId;
+  const payload = req.body;
+  const updatedEvent = await eventDataAccess.update(eventId, payload);
+  res.status(200).send(updatedEvent);
+};
+
 const deleteEvent = async (req, res) => {
   const eventId = req.params.id;
   const event = await eventDataAccess.getEventById(eventId);
@@ -69,21 +76,39 @@ const deleteEvent = async (req, res) => {
 
   const memberAttendances = await getMemberAttendances(eventId);
 
-  if (memberAttendances && memberAttendances.length > 0)
-    res
+  if (memberAttendances && memberAttendances.length > 0) {
+    return res
       .status(400)
       .send(
         `Unable to delete Event: ${event.eventName} because there are member attendance in it.`
       );
+  }
 
   await eventDataAccess.delete(eventId);
 
   res.status(200).send();
 };
 
+searchEvents = async (req, res) => {
+  let { eventName, dateStart, dateEnd } = req.query;
+
+  dateStart = parseDate(dateStart, false);
+  dateEnd = parseDate(dateEnd, false);
+
+  const filteredEvents = await eventDataAccess.searchEvents(
+    eventName,
+    dateStart,
+    dateEnd
+  );
+
+  res.status(200).send(filteredEvents);
+};
+
 module.exports = {
   getAllEvents,
   getEventById,
   createEvent,
+  updateEvent,
   deleteEvent,
+  searchEvents,
 };
