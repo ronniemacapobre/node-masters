@@ -1,9 +1,13 @@
+const path = require('path');
 const {
   eventDataAccess,
   attendanceDataAccess,
   memberDataAccess,
 } = require('../dataAccess');
 const { parseDate } = require('../utilities/helpers');
+const { exportToExcel } = require('../utilities/exportToExcel');
+
+const EXPORT_DIRECTORY = './src/Final_Project/exports';
 
 const getMemberAttendances = async (eventId) => {
   // Get Attendances of the Event
@@ -104,6 +108,42 @@ searchEvents = async (req, res) => {
   res.status(200).send(filteredEvents);
 };
 
+exportEventMembers = async (req, res) => {
+  // Get event
+  const { eventId } = req.query;
+  const event = await eventDataAccess.getEventById(eventId);
+  if (!event) return res.status(404).send('Event not found!');
+
+  // Get event members
+  const memberAttendances = await getMemberAttendances(eventId);
+
+  // Sanitize filename and date
+  const cleanEventName = event.eventName.replace(/ /g, '_');
+  const cleanStartDate = event.startDateTime
+    .toLocaleDateString()
+    .replace(/\//g, '_');
+  const cleanStartTime = event.startDateTime
+    .toLocaleTimeString()
+    .replace(/:/g, '_')
+    .replace(/ /, '_');
+
+  const filename = `${cleanEventName}__${cleanStartDate}_${cleanStartTime}.xlsx`;
+  const fullPath = path.join(EXPORT_DIRECTORY, filename);
+  const headers = ['Member Name', 'Time-In', 'Time-Out'];
+  const dataProps = ['name', 'timeIn', 'timeOut'];
+
+  memberAttendances.sort((a, b) => {
+    const leftDate = new Date(a.timeIn);
+    const rightDate = new Date(b.timeIn);
+
+    return leftDate > rightDate ? 1 : -1;
+  });
+
+  exportToExcel(fullPath, headers, dataProps, memberAttendances);
+
+  res.download(fullPath, filename);
+};
+
 module.exports = {
   getAllEvents,
   getEventById,
@@ -111,4 +151,5 @@ module.exports = {
   updateEvent,
   deleteEvent,
   searchEvents,
+  exportEventMembers,
 };

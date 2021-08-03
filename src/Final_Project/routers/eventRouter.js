@@ -8,17 +8,20 @@ const {
     updateEvent,
     deleteEvent,
     searchEvents,
+    exportEventMembers,
   },
 } = require('../controllers');
 const {
   validationBodyRules,
   checkRules,
   searchEventValidation,
+  exportEventValidation,
 } = require('../validators/event.validator');
 
 const router = express.Router();
 
 router.get('/search', searchEventValidation, checkRules, searchEvents);
+router.get('/export', exportEventValidation, checkRules, exportEventMembers);
 router.get('/', getAllEvents);
 router.get('/:id', getEventById);
 router.post('/', validationBodyRules, checkRules, createEvent);

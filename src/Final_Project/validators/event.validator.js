@@ -84,6 +84,10 @@ exports.searchEventValidation = [
   }),
 ];
 
+exports.exportEventValidation = [
+  query('eventId').exists().withMessage('eventId is required'),
+];
+
 exports.checkRules = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())

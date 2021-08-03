@@ -29,6 +29,13 @@
       "timeIn": "2021-08-05 01:40:00"
     },
     {
+      "attendanceId": "5368c0ac-e50e-462e-9bb4-52aa7291c5cc",
+      "memberId": "ee3b61a2-9355-4b18-81d6-331f0ab49678",
+      "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+      "timeIn": "2021-08-20 01:40:00",
+      "timeOut": "2021-08-20 12:50:00"
+    },
+    {
       "attendanceId": "61b56be8-a16f-471d-aabf-f878fa67e36c",
       "eventId": "8790529d-8ee5-4d78-8017-544f8ae34743",
       "memberId": "50d1821b-0c61-4667-b324-bad5998b1111",
@@ -46,6 +53,12 @@
       "memberId": "50d1821b-0c61-4667-b324-bad5998b1111",
       "name": "John",
       "joinedDate": "2019-01-03 00:00:00",
+      "status": "active"
+    },
+    {
+      "memberId": "ee3b61a2-9355-4b18-81d6-331f0ab49678",
+      "name": "Mark",
+      "joinedDate": "2020-12-30 00:00:00",
       "status": "active"
     }
   ]

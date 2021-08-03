@@ -132,3 +132,12 @@ GET http://localhost:3000/events/search?dateEnd=ABC
 
 ### Search Events with invalid criteria should return an error
 GET http://localhost:3000/events/search?dateEnd=ABC
+
+### Export with no eventId should return an error
+GET http://localhost:3000/events/export
+
+### Export with eventId that does not exist should return an error
+GET http://localhost:3000/events/export?eventId=A
+
+### Export with valid eventId should export an excel file
+GET http://localhost:3000/events/export?eventId=828b2004-bc3c-4ed5-aeee-f8620c5520bd
