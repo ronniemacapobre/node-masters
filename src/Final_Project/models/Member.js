@@ -1,9 +1,9 @@
 class Member {
-  constructor({ memberId, name, status, joinedDate = null }) {
+  constructor({ memberId, name, status, joinedDate }) {
     this.memberId = memberId;
     this.name = name;
     this.status = status;
-    this.joinedDate = joinedDate;
+    this.joinedDate = joinedDate ? new Date(joinedDate) : null;
   }
 }
 
