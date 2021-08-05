@@ -1,0 +1,8 @@
+### Get all events
+GET http://localhost:3000/members
+
+### Get member by id
+GET http://localhost:3000/members/50d1821b-0c61-4667-b324-bad5998b1111
+
+### Get member by id that doesn't exist will return not found
+GET http://localhost:3000/members/ABC
