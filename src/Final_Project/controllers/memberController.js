@@ -35,7 +35,18 @@ const getMemberById = async (req, res) => {
   res.status(200).send(memberDetails);
 };
 
+const createMember = async (req, res) => {
+  try {
+    const payload = req.body;
+    const newMember = await memberDataAccess.createMember(payload);
+    res.status(200).send(newMember);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 module.exports = {
   getAllMembers,
   getMemberById,
+  createMember,
 };

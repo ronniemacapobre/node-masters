@@ -13,10 +13,10 @@ const {
 } = require('../controllers');
 const {
   validationBodyRules,
-  checkRules,
   searchEventValidation,
   exportEventValidation,
 } = require('../validators/event.validator');
+const { checkRules } = require('../validators');
 
 const router = express.Router();
 

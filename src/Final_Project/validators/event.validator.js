@@ -1,4 +1,4 @@
-const { body, validationResult, query, check } = require('express-validator');
+const { body, query } = require('express-validator');
 const { parseDateTime, parseDate } = require('../utilities/helpers');
 
 const isDateSearchValid = (dateValue) => {
@@ -87,11 +87,3 @@ exports.searchEventValidation = [
 exports.exportEventValidation = [
   query('eventId').exists().withMessage('eventId is required'),
 ];
-
-exports.checkRules = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty())
-    return res.status(400).json({ errors: errors.array() });
-
-  next();
-};

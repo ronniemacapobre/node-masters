@@ -16,6 +16,11 @@ class MemberDataAccess extends DataAccess {
     const members = data.map((member) => new Member(member));
     return members;
   }
+
+  async createMember(data) {
+    const member = await this.create(data);
+    return new Member(member);
+  }
 }
 
 module.exports = new MemberDataAccess();

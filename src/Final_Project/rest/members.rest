@@ -6,3 +6,49 @@ GET http://localhost:3000/members/50d1821b-0c61-4667-b324-bad5998b1111
 
 ### Get member by id that doesn't exist will return not found
 GET http://localhost:3000/members/ABC
+
+### Add Member with invalid fields will return an error
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+    "name": "Bob"
+}
+
+### Add Member with invalid fields will return an error
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+    "memberName": "Bob",
+    "status": "active"
+}
+
+### Add Member with invalid joined date will return an error
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+    "memberName": "Bob",
+    "status": "active",
+    "joinedDate": "ABC"
+}
+
+### Add Member with valid fields but without joinedDate
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+    "memberName": "Bobby",
+    "status": "active"
+}
+
+### Add Member with valid fields with joinedDate
+POST http://localhost:3000/members
+Content-Type: application/json
+
+{
+    "memberName": "Khris",
+    "status": "active",
+    "joinedDate": "2021-08-07 17:30:00"
+}
