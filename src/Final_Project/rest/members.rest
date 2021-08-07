@@ -52,3 +52,34 @@ Content-Type: application/json
     "status": "active",
     "joinedDate": "2021-08-07 17:30:00"
 }
+
+### Update Member with valid fields
+PUT http://localhost:3000/members/efd99f45-951f-4cc7-a09f-6532737c86a5
+Content-Type: application/json
+
+{
+    "memberId": "efd99f45-951f-4cc7-a09f-6532737c86a5",
+    "memberName": "Bry",
+    "status": "active",
+    "joinedDate": "2021-10-30 15:30:00"
+}
+
+### Update Member with missing fields will fail
+PUT http://localhost:3000/members/efd99f45-951f-4cc7-a09f-6532737c86a5
+Content-Type: application/json
+
+{
+    "memberId": "efd99f45-951f-4cc7-a09f-6532737c86a5",
+    "joinedDate": "2021-10-30 15:30:00"
+}
+
+### Update Member with different id will return an error
+PUT http://localhost:3000/members/04b86bf8-1069-4988-bc2f-bb35d8744f9e
+Content-Type: application/json
+
+{
+    "memberId": "04b86bf8-1069-4988-bc2f-bb35d8744f9e",
+    "memberName": "Bry",
+    "status": "active",
+    "joinedDate": "2021-10-30 15:30:00"
+}

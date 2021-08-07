@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 const { parseDateTime } = require('../utilities/helpers');
 
-exports.createMemberValidation = [
+exports.upsertMemberValidation = [
   body('memberName')
     .exists()
     .withMessage('Member Name is required')

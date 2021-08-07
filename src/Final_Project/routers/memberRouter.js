@@ -1,7 +1,13 @@
 const express = require('express');
-const { createMemberValidation } = require('../validators/member.validator');
+const { body } = require('express-validator');
+const { upsertMemberValidation } = require('../validators/member.validator');
 const {
-  memberController: { getAllMembers, getMemberById, createMember },
+  memberController: {
+    getAllMembers,
+    getMemberById,
+    createMember,
+    updateMember,
+  },
 } = require('../controllers');
 const { checkRules } = require('../validators');
 
@@ -9,6 +15,17 @@ const router = express.Router();
 
 router.get('/', getAllMembers);
 router.get('/:id', getMemberById);
-router.post('/', createMemberValidation, checkRules, createMember);
+router.post('/', upsertMemberValidation, checkRules, createMember);
+router.put(
+  '/:id',
+  body('memberId')
+    .exists()
+    .withMessage('Member Id is required')
+    .notEmpty()
+    .withMessage('Member Id is required'),
+  upsertMemberValidation,
+  checkRules,
+  updateMember
+);
 
 module.exports = router;

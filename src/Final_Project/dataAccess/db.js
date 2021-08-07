@@ -64,12 +64,13 @@ class DataAccess {
 
   async update(id, data) {
     const dbContext = await this.dbContext;
-
     dbContext
       .get(this.tableName)
       .find({ [this.tableIdFieldName]: id })
       .assign(data)
       .write();
+
+    return this.getById(id);
   }
 
   async delete(id) {

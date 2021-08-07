@@ -1,5 +1,5 @@
 const express = require('express');
-const { check, body, oneOf, query } = require('express-validator');
+const { check, body } = require('express-validator');
 const {
   eventController: {
     getAllEvents,

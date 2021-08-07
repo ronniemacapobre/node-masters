@@ -45,8 +45,28 @@ const createMember = async (req, res) => {
   }
 };
 
+const updateMember = async (req, res) => {
+  try {
+    const memberId = req.params.id;
+    const payload = req.body;
+
+    if (memberId !== payload.memberId)
+      return res.status(404).send('Member Id mismatch');
+
+    const member = await memberDataAccess.getById(memberId);
+    if (!member) return res.status(404).send('Member Id not found!');
+
+    const updatedMember = await memberDataAccess.update(memberId, payload);
+    res.status(200).send(updatedMember);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+};
+
 module.exports = {
   getAllMembers,
   getMemberById,
   createMember,
+  updateMember,
 };
