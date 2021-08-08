@@ -45,19 +45,19 @@
   "members": [
     {
       "memberId": "43f26ff5-3245-4345-aa10-9b57b15e9450",
-      "name": "Ronnie",
+      "memberName": "Ronnie",
       "joinedDate": "2011-07-07 00:00:00",
       "status": "active"
     },
     {
       "memberId": "50d1821b-0c61-4667-b324-bad5998b1111",
-      "name": "John",
+      "memberName": "John",
       "joinedDate": "2019-01-03 00:00:00",
       "status": "active"
     },
     {
       "memberId": "ee3b61a2-9355-4b18-81d6-331f0ab49678",
-      "name": "Mark",
+      "memberName": "Mark",
       "joinedDate": "2020-12-30 00:00:00",
       "status": "active"
     },
@@ -71,6 +71,12 @@
       "memberName": "Bry",
       "status": "active",
       "joinedDate": "2021-10-30 15:30:00"
+    },
+    {
+      "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+      "memberName": "Brook",
+      "status": "inactive",
+      "joinedDate": "2021-06-30 00:30:00"
     }
   ]
 }

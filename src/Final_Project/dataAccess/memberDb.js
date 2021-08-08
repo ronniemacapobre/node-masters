@@ -21,6 +21,19 @@ class MemberDataAccess extends DataAccess {
     const member = await this.create(data);
     return new Member(member);
   }
+
+  async searchMembers(memberName, status) {
+    const allMembers = await this.getAllMembers();
+    let filteredMembers = [...allMembers];
+
+    filteredMembers = filteredMembers.filter(
+      (m) =>
+        m.memberName.toLowerCase().includes(memberName.toLowerCase()) &&
+        m.status.toLowerCase().includes(status.toLowerCase())
+    );
+
+    return filteredMembers;
+  }
 }
 
 module.exports = new MemberDataAccess();

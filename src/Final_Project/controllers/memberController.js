@@ -81,10 +81,19 @@ const deleteMember = async (req, res) => {
   res.status(200).send();
 };
 
+searchMembers = async (req, res) => {
+  let { name, status } = req.query;
+
+  const filteredMembers = await memberDataAccess.searchMembers(name, status);
+
+  res.status(200).send(filteredMembers);
+};
+
 module.exports = {
   getAllMembers,
   getMemberById,
   createMember,
   updateMember,
   deleteMember,
+  searchMembers,
 };

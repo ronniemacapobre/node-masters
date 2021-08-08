@@ -26,8 +26,6 @@ class EventDataAccess extends DataAccess {
     const allEvents = await this.getAllEvents();
     let filteredEvents = [...allEvents];
 
-    console.log(eventName, dateStart, dateEnd);
-
     if (eventName)
       filteredEvents = filteredEvents.filter((e) =>
         e.eventName.toLowerCase().includes(eventName.toLowerCase())

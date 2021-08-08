@@ -103,3 +103,15 @@ DELETE http://localhost:3000/members/43f26ff5-3245-4345-aa10-9b57b15e9450
 
 ### Delete a Member without event attendance
 DELETE http://localhost:3000/members/b1ea547d-1a7f-4e67-a9bb-caa449f061cc
+
+### Search Members with missing status will fail
+GET http://localhost:3000/members/search?name=Ronnie
+
+### Search Members with missing name will fail
+GET http://localhost:3000/members/search?status=active
+
+### Search Members
+GET http://localhost:3000/members/search?name=n&status=active
+
+### Search Members (inactive)
+GET http://localhost:3000/members/search?name=br&status=inactive

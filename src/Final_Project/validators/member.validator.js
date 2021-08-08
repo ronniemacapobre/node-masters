@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+const { body, query } = require('express-validator');
 const { parseDateTime } = require('../utilities/helpers');
 
 exports.upsertMemberValidation = [
@@ -22,6 +22,17 @@ exports.upsertMemberValidation = [
 
     if (!date || isNaN(date))
       throw new Error('Please use this date format: YYYY-MM-DD HH:MM:SS');
+
+    return true;
+  }),
+];
+
+exports.searchParamValidation = [
+  query().custom((value) => {
+    const { name, status } = value;
+
+    if (!name || !status)
+      throw new Error('Please provide name and status as search criteria');
 
     return true;
   }),
