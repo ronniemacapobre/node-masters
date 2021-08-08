@@ -73,7 +73,7 @@ Content-Type: application/json
     "joinedDate": "2021-10-30 15:30:00"
 }
 
-### Update Member with different id will return an error
+### Update Member with member id that doesn't exist will return an error
 PUT http://localhost:3000/members/04b86bf8-1069-4988-bc2f-bb35d8744f9e
 Content-Type: application/json
 
@@ -83,3 +83,23 @@ Content-Type: application/json
     "status": "active",
     "joinedDate": "2021-10-30 15:30:00"
 }
+
+### Update Member with different id will return an error
+PUT http://localhost:3000/members/04b86bf8-1069-4988-bc2f-bb35d8744f9e
+Content-Type: application/json
+
+{
+    "memberId": "43f26ff5-3245-4345-aa10-9b57b15e9450",
+    "memberName": "Bry",
+    "status": "active",
+    "joinedDate": "2021-10-30 15:30:00"
+}
+
+### Delete a Member that doesn't exist will return an error
+DELETE http://localhost:3000/members/ABC
+
+### Delete a Member with event attendance will not proceed
+DELETE http://localhost:3000/members/43f26ff5-3245-4345-aa10-9b57b15e9450
+
+### Delete a Member without event attendance
+DELETE http://localhost:3000/members/b1ea547d-1a7f-4e67-a9bb-caa449f061cc

@@ -7,6 +7,7 @@ const {
     getMemberById,
     createMember,
     updateMember,
+    deleteMember,
   },
 } = require('../controllers');
 const { checkRules } = require('../validators');
@@ -27,5 +28,6 @@ router.put(
   checkRules,
   updateMember
 );
+router.delete('/:id', deleteMember);
 
 module.exports = router;

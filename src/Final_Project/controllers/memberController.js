@@ -64,9 +64,27 @@ const updateMember = async (req, res) => {
   }
 };
 
+const deleteMember = async (req, res) => {
+  const memberId = req.params.id;
+
+  const member = await memberDataAccess.getById(memberId);
+  if (!member) return res.status(404).send('Member Id not found!');
+
+  const data = await attendanceDataAccess.getByMemberId(memberId);
+  if (data.length > 0)
+    return res
+      .status(400)
+      .send('Unable to delete. Event attendance is existing');
+
+  await memberDataAccess.delete(memberId);
+
+  res.status(200).send();
+};
+
 module.exports = {
   getAllMembers,
   getMemberById,
   createMember,
   updateMember,
+  deleteMember,
 };
