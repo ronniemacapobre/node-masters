@@ -1,2 +1,177 @@
 ### Get all attendances
 GET http://localhost:3000/attendance
+
+### Add Attendance with missing memberId will fail
+POST http://localhost:3000/attendance
+Content-Type: application/json
+
+{
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "timeIn": "2021-05-30 12:00:00"
+}
+
+### Add Attendance with missing eventId will fail
+POST http://localhost:3000/attendance
+Content-Type: application/json
+
+{
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-05-30 12:00:00"
+}
+
+### Add Attendance with missing timeIn will fail
+POST http://localhost:3000/attendance
+Content-Type: application/json
+
+{
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341"
+}
+
+### Add Attendance with timeIn later than timeOut
+POST http://localhost:3000/attendance
+Content-Type: application/json
+
+{
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-05-30 12:00:00",
+    "timeOut": "2021-05-30 12:00:00"
+}
+
+### Add Brooks' Attendance to 'SQL 4 Devs - Batch 4' event
+POST http://localhost:3000/attendance
+Content-Type: application/json
+
+{
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-05-25 12:00:00",
+    "timeOut": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance with missing memberId will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "timeIn": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance with missing eventId will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance with missing timeIn will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341"
+}
+
+### Edit Attendance with timeIn later than timeOut
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-11-30 12:00:00",
+    "timeOut": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance with an invalid timeIn value will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "ABC",
+    "timeOut": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance with an invalid timeOut value will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-05-30 12:00:00",
+    "timeOut": "ABC"
+}
+
+### Edit Attendance with different attendance id will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "69d21c67-f356-49b6-b643-077b7495ebe0",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-04-30 12:00:00",
+    "timeOut": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance with not existing event id will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "054851a5-35c6-4f40-aa17-f991d587c43a",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-04-30 12:00:00",
+    "timeOut": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance with not existing member id will fail
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "bd6d4e97-089c-47a1-9acc-b0d1d36f4a44",
+    "timeIn": "2021-04-30 12:00:00",
+    "timeOut": "2021-05-30 12:00:00"
+}
+
+### Edit Attendance that doesn't exist will fail
+PUT http://localhost:3000/attendance/84a311a0-5307-4d4a-b852-ab00f3b9d791
+Content-Type: application/json
+
+{
+    "attendanceId": "84a311a0-5307-4d4a-b852-ab00f3b9d791",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-02-25 12:00:00",
+    "timeOut": "2021-04-30 12:00:00"
+}
+
+### Edit Attendance with valid format and data
+PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+Content-Type: application/json
+
+{
+    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+    "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+    "timeIn": "2021-02-25 12:00:00",
+    "timeOut": "2021-04-30 12:00:00"
+}

@@ -40,6 +40,13 @@
       "eventId": "8790529d-8ee5-4d78-8017-544f8ae34743",
       "memberId": "50d1821b-0c61-4667-b324-bad5998b1111",
       "timeIn": "2021-08-05 04:40:00"
+    },
+    {
+      "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+      "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
+      "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
+      "timeIn": "2021-02-25 12:00:00",
+      "timeOut": "2021-04-30 12:00:00"
     }
   ],
   "members": [

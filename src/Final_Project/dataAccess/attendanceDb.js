@@ -6,6 +6,11 @@ class AttendanceDataAccess extends DataAccess {
     super('attendances', 'attendanceId');
   }
 
+  async getAttendanceById(attendanceId) {
+    const attendance = await this.getById(attendanceId);
+    return attendance ? new Attendance(attendance) : null;
+  }
+
   async getByEventId(eventId) {
     const data = await this.filterByAny({
       propName: 'eventId',
@@ -28,6 +33,11 @@ class AttendanceDataAccess extends DataAccess {
     const data = await this.getAll();
     const attendances = data.map((attendance) => new Attendance(attendance));
     return attendances;
+  }
+
+  async createAttendance(data) {
+    const attendance = await this.create(data);
+    return new Attendance(attendance);
   }
 }
 
