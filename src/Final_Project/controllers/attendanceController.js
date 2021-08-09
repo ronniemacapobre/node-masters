@@ -53,8 +53,21 @@ const updateAttendance = async (req, res) => {
   res.status(200).send(updatedAttendance);
 };
 
+const deleteAttendance = async (req, res) => {
+  const attendanceId = req.params.id;
+
+  // Check if attendance exists
+  const attendance = await attendanceDataAccess.getAttendanceById(attendanceId);
+  if (!attendance) return res.status(404).send('Attendance Id not found');
+
+  await attendanceDataAccess.delete(attendanceId);
+
+  res.status(200).send();
+};
+
 module.exports = {
   getAllAttendances,
   createAttendance,
   updateAttendance,
+  deleteAttendance,
 };

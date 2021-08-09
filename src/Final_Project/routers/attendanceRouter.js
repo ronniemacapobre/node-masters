@@ -5,6 +5,7 @@ const {
     getAllAttendances,
     createAttendance,
     updateAttendance,
+    deleteAttendance,
   },
 } = require('../controllers');
 const { checkRules } = require('../validators');
@@ -27,5 +28,6 @@ router.put(
   checkRules,
   updateAttendance
 );
+router.delete('/:id', deleteAttendance);
 
 module.exports = router;

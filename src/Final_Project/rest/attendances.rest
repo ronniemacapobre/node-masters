@@ -175,3 +175,9 @@ Content-Type: application/json
     "timeIn": "2021-02-25 12:00:00",
     "timeOut": "2021-04-30 12:00:00"
 }
+
+### Delete Attendance that doesn't exist will fail
+DELETE http://localhost:3000/attendance/c53bcb01-55aa-41a7-8e66-815aab065dab
+
+### Delete Attendance 
+DELETE http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
