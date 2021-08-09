@@ -1,4 +1,4 @@
-### Get all events
+### Get all members
 GET http://localhost:3000/members
 
 ### Get member by id

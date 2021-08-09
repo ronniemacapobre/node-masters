@@ -3,7 +3,7 @@ const { Attendance } = require('../models');
 
 class AttendanceDataAccess extends DataAccess {
   constructor() {
-    super('attendances');
+    super('attendances', 'attendanceId');
   }
 
   async getByEventId(eventId) {
@@ -20,6 +20,12 @@ class AttendanceDataAccess extends DataAccess {
       propName: 'memberId',
       propValue: memberId,
     });
+    const attendances = data.map((attendance) => new Attendance(attendance));
+    return attendances;
+  }
+
+  async getAllAttendances() {
+    const data = await this.getAll();
     const attendances = data.map((attendance) => new Attendance(attendance));
     return attendances;
   }
