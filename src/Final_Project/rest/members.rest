@@ -21,7 +21,7 @@ Content-Type: application/json
 
 {
     "memberName": "Bob",
-    "status": "active"
+    "statuses": "active"
 }
 
 ### Add Member with invalid joined date will return an error
@@ -54,13 +54,13 @@ Content-Type: application/json
 }
 
 ### Update Member with valid fields
-PUT http://localhost:3000/members/efd99f45-951f-4cc7-a09f-6532737c86a5
+PUT http://localhost:3000/members/c021e74a-dfb0-4703-bdde-b33ab2537488
 Content-Type: application/json
 
 {
-    "memberId": "efd99f45-951f-4cc7-a09f-6532737c86a5",
+    "memberId": "c021e74a-dfb0-4703-bdde-b33ab2537488",
     "memberName": "Bry",
-    "status": "active",
+    "status": "inactive",
     "joinedDate": "2021-10-30 15:30:00"
 }
 
@@ -102,7 +102,7 @@ DELETE http://localhost:3000/members/ABC
 DELETE http://localhost:3000/members/43f26ff5-3245-4345-aa10-9b57b15e9450
 
 ### Delete a Member without event attendance
-DELETE http://localhost:3000/members/b1ea547d-1a7f-4e67-a9bb-caa449f061cc
+DELETE http://localhost:3000/members/c021e74a-dfb0-4703-bdde-b33ab2537488
 
 ### Search Members with missing status will fail
 GET http://localhost:3000/members/search?name=Ronnie

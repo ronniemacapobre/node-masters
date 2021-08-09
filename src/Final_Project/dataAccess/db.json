@@ -62,21 +62,15 @@
       "status": "active"
     },
     {
-      "memberId": "b1ea547d-1a7f-4e67-a9bb-caa449f061cc",
-      "memberName": "Bobby",
-      "status": "active"
-    },
-    {
-      "memberId": "efd99f45-951f-4cc7-a09f-6532737c86a5",
-      "memberName": "Bry",
-      "status": "active",
-      "joinedDate": "2021-10-30 15:30:00"
-    },
-    {
       "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
       "memberName": "Brook",
       "status": "inactive",
       "joinedDate": "2021-06-30 00:30:00"
+    },
+    {
+      "memberId": "26b3fef1-0cf1-4f31-a6d2-462491736ae6",
+      "memberName": "Bobby",
+      "status": "active"
     }
   ]
 }
