@@ -56,7 +56,7 @@ exports.validateUpdateAttendanceRequest = [
     .notEmpty()
     .withMessage('Attendance Id is required'),
   ...this.validateAttendanceRequest,
-  body().custom((value, { req, res }) => {
+  body().custom((value, { req }) => {
     const id = req.params.id;
     const { attendanceId } = value;
     if (id !== attendanceId) throw new Error('Attendance Id mismatch');

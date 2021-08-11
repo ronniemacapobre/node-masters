@@ -1,8 +1,10 @@
 const express = require('express');
-const { body } = require('express-validator');
 const {
-  upsertMemberValidation,
-  searchParamValidation,
+  validateMemberReq,
+  validateUpdateMemberReq,
+  validateSearchReq,
+  isMemberIdExists,
+  validateEventAttendances,
 } = require('../validators/member.validator');
 const {
   memberController: {
@@ -18,21 +20,17 @@ const { checkRules } = require('../validators');
 
 const router = express.Router();
 
-router.get('/search', searchParamValidation, checkRules, searchMembers);
+router.get('/search', validateSearchReq, checkRules, searchMembers);
 router.get('/', getAllMembers);
-router.get('/:id', getMemberById);
-router.post('/', upsertMemberValidation, checkRules, createMember);
+router.get('/:id', isMemberIdExists, getMemberById);
+router.post('/', validateMemberReq, checkRules, createMember);
 router.put(
   '/:id',
-  body('memberId')
-    .exists()
-    .withMessage('Member Id is required')
-    .notEmpty()
-    .withMessage('Member Id is required'),
-  upsertMemberValidation,
+  validateUpdateMemberReq,
   checkRules,
+  isMemberIdExists,
   updateMember
 );
-router.delete('/:id', deleteMember);
+router.delete('/:id', isMemberIdExists, validateEventAttendances, deleteMember);
 
 module.exports = router;

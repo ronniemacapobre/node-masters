@@ -117,7 +117,7 @@ exportEventMembers = async (req, res) => {
 
   exportToExcel(fullPath, headers, dataProps, memberAttendances);
 
-  //res.download(fullPath, filename);
+  res.download(fullPath, filename);
 };
 
 module.exports = {
