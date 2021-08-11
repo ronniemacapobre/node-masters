@@ -1,7 +1,12 @@
 const { body } = require('express-validator');
+const {
+  eventDataAccess,
+  memberDataAccess,
+  attendanceDataAccess,
+} = require('../dataAccess');
 const { parseDateTime } = require('../utilities/helpers');
 
-exports.upsertAttendanceValidation = [
+exports.validateAttendanceRequest = [
   body('memberId')
     .exists()
     .withMessage('Member Id is required')
@@ -43,3 +48,43 @@ exports.upsertAttendanceValidation = [
     return true;
   }),
 ];
+
+exports.validateUpdateAttendanceRequest = [
+  body('attendanceId')
+    .exists()
+    .withMessage('Attendance Id is required')
+    .notEmpty()
+    .withMessage('Attendance Id is required'),
+  ...this.validateAttendanceRequest,
+  body().custom((value, { req, res }) => {
+    const id = req.params.id;
+    const { attendanceId } = value;
+    if (id !== attendanceId) throw new Error('Attendance Id mismatch');
+    return true;
+  }),
+];
+
+exports.isEventIdExists = async (req, res, next) => {
+  const { eventId } = req.body;
+  const event = await eventDataAccess.getEventById(eventId);
+
+  if (!event) return res.status(404).send('Event not found');
+
+  next();
+};
+
+exports.isMemberExists = async (req, res, next) => {
+  const { memberId } = req.body;
+  const member = await memberDataAccess.getMemberById(memberId);
+  if (!member) return res.status(404).send('Member not found');
+
+  next();
+};
+
+exports.isAttendanceExists = async (req, res, next) => {
+  const attendanceId = req.body.attendanceId || req.params.id;
+  const attendance = await attendanceDataAccess.getAttendanceById(attendanceId);
+  if (!attendance) return res.status(404).send('Attendance Id not found');
+
+  next();
+};

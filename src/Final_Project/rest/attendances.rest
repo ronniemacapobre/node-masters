@@ -165,11 +165,11 @@ Content-Type: application/json
 }
 
 ### Edit Attendance with valid format and data
-PUT http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+PUT http://localhost:3000/attendance/81233bd9-2944-4759-9cb1-b6f895ab6b1b
 Content-Type: application/json
 
 {
-    "attendanceId": "989f4047-2d0f-489d-ba69-03e4847ef25a",
+    "attendanceId": "81233bd9-2944-4759-9cb1-b6f895ab6b1b",
     "eventId": "828b2004-bc3c-4ed5-aeee-f8620c5520bd",
     "memberId": "058b0aed-ba5a-4933-9c76-408f234e9341",
     "timeIn": "2021-02-25 12:00:00",
@@ -180,4 +180,4 @@ Content-Type: application/json
 DELETE http://localhost:3000/attendance/c53bcb01-55aa-41a7-8e66-815aab065dab
 
 ### Delete Attendance 
-DELETE http://localhost:3000/attendance/989f4047-2d0f-489d-ba69-03e4847ef25a
+DELETE http://localhost:3000/attendance/41a50c2e-ae3f-4827-a012-c8da80723f54

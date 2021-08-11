@@ -1,5 +1,4 @@
 const express = require('express');
-const { body } = require('express-validator');
 const {
   attendanceController: {
     getAllAttendances,
@@ -10,24 +9,33 @@ const {
 } = require('../controllers');
 const { checkRules } = require('../validators');
 const {
-  upsertAttendanceValidation,
+  validateAttendanceRequest,
+  validateUpdateAttendanceRequest,
+  isEventIdExists,
+  isMemberExists,
+  isAttendanceExists,
 } = require('../validators/attendance.validator');
 
 const router = express.Router();
 
 router.get('/', getAllAttendances);
-router.post('/', upsertAttendanceValidation, checkRules, createAttendance);
+router.post(
+  '/',
+  validateAttendanceRequest,
+  checkRules,
+  isEventIdExists,
+  isMemberExists,
+  createAttendance
+);
 router.put(
   '/:id',
-  body('attendanceId')
-    .exists()
-    .withMessage('Attendance Id is required')
-    .notEmpty()
-    .withMessage('Attendance Id is required'),
-  upsertAttendanceValidation,
+  validateUpdateAttendanceRequest,
   checkRules,
+  isEventIdExists,
+  isMemberExists,
+  isAttendanceExists,
   updateAttendance
 );
-router.delete('/:id', deleteAttendance);
+router.delete('/:id', isAttendanceExists, deleteAttendance);
 
 module.exports = router;
