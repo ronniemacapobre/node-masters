@@ -1,5 +1,10 @@
-const { body, query } = require('express-validator');
+const { body, query, check } = require('express-validator');
 const { parseDateTime, parseDate } = require('../utilities/helpers');
+const {
+  eventDataAccess,
+  memberDataAccess,
+  attendanceDataAccess,
+} = require('../dataAccess');
 
 const isDateSearchValid = (dateValue) => {
   // Ignore validation if nothing to validate
@@ -11,7 +16,7 @@ const isDateSearchValid = (dateValue) => {
   return date && !isNaN(date);
 };
 
-exports.validationBodyRules = [
+exports.validateEventReq = [
   body('eventName')
     .exists()
     .withMessage('Event Name is required')
@@ -44,21 +49,35 @@ exports.validationBodyRules = [
     .not()
     .isEmpty()
     .withMessage('End Date cannot be empty')
-    .custom((value, { req }) => {
-      const startDateTime = parseDateTime(req.body.startDateTime);
+    .custom((value) => {
       const endDateTime = parseDateTime(value);
 
       if (!endDateTime || isNaN(endDateTime))
         throw new Error('Please use this date format: YYYY-MM-DD HH:MM:SS');
 
-      if (startDateTime >= endDateTime)
-        throw new Error('Start Date should be earlier than End Date');
-
       return true;
     }),
+  body().custom(({ startDateTime, endDateTime }) => {
+    const sDate = parseDateTime(startDateTime);
+    const eDate = parseDateTime(endDateTime);
+
+    if (sDate >= eDate)
+      throw new Error('Start Date should be earlier than End Date');
+
+    return true;
+  }),
 ];
 
-exports.searchEventValidation = [
+exports.validateUpdateEventReq = [
+  body('eventId')
+    .exists()
+    .withMessage('Event Id is required')
+    .notEmpty()
+    .withMessage('Event Id is required'),
+  ...this.validateEventReq,
+];
+
+exports.validateSearchReq = [
   query('dateStart')
     .custom((value) => isDateSearchValid(value))
     .withMessage('Please use this date format: YYYY_MM_DD'),
@@ -84,6 +103,32 @@ exports.searchEventValidation = [
   }),
 ];
 
-exports.exportEventValidation = [
+exports.validateExportReq = [
   query('eventId').exists().withMessage('eventId is required'),
 ];
+
+exports.validateDeleteEventReq = [check('id').not().isEmpty()];
+
+exports.isEventIdExists = async (req, res, next) => {
+  const eventId = req?.body?.eventId || req?.params?.id || req?.query?.eventId;
+  const event = await eventDataAccess.getEventById(eventId);
+
+  if (!event) return res.status(404).send('Event not found');
+
+  next();
+};
+
+exports.validateMemberAttendances = async (req, res, next) => {
+  const eventId = req.params.id;
+  const attendances = await attendanceDataAccess.getByEventId(eventId);
+
+  if (attendances && attendances.length > 0) {
+    return res
+      .status(400)
+      .send(
+        `Unable to delete event because there are member attendance in it.`
+      );
+  }
+
+  next();
+};

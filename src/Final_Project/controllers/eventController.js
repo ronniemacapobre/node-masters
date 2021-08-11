@@ -16,10 +16,10 @@ const getMemberAttendances = async (eventId) => {
   // Prepare Member-Attendance object
   const memberAttendances = await Promise.all(
     attendances.map(async ({ memberId, timeIn, timeOut }) => {
-      const { name } = await memberDataAccess.getMemberById(memberId);
+      const { memberName } = await memberDataAccess.getMemberById(memberId);
       return {
         memberId,
-        name,
+        memberName,
         timeIn,
         timeOut,
       };
@@ -46,23 +46,15 @@ const getAllEvents = async (req, res) => {
 const getEventById = async (req, res) => {
   const eventId = req.params.id;
   const event = await eventDataAccess.getEventById(eventId);
-
-  if (!event) res.status(404).send('Event not found!');
-
   const memberAttendances = await getMemberAttendances(eventId);
   event.memberAttendances = [...memberAttendances];
-
   res.status(200).send(event);
 };
 
 const createEvent = async (req, res) => {
-  try {
-    const payload = req.body;
-    const newEvent = await eventDataAccess.createEvent(payload);
-    res.status(200).send(newEvent);
-  } catch (error) {
-    res.status(400).send(error);
-  }
+  const payload = req.body;
+  const newEvent = await eventDataAccess.createEvent(payload);
+  res.status(200).send(newEvent);
 };
 
 const updateEvent = async (req, res) => {
@@ -74,22 +66,7 @@ const updateEvent = async (req, res) => {
 
 const deleteEvent = async (req, res) => {
   const eventId = req.params.id;
-  const event = await eventDataAccess.getEventById(eventId);
-
-  if (!event) res.status(404).send('Event not found!');
-
-  const memberAttendances = await getMemberAttendances(eventId);
-
-  if (memberAttendances && memberAttendances.length > 0) {
-    return res
-      .status(400)
-      .send(
-        `Unable to delete Event: ${event.eventName} because there are member attendance in it.`
-      );
-  }
-
   await eventDataAccess.delete(eventId);
-
   res.status(200).send();
 };
 
@@ -112,7 +89,6 @@ exportEventMembers = async (req, res) => {
   // Get event
   const { eventId } = req.query;
   const event = await eventDataAccess.getEventById(eventId);
-  if (!event) return res.status(404).send('Event not found!');
 
   // Get event members
   const memberAttendances = await getMemberAttendances(eventId);
@@ -130,7 +106,7 @@ exportEventMembers = async (req, res) => {
   const filename = `${cleanEventName}__${cleanStartDate}_${cleanStartTime}.xlsx`;
   const fullPath = path.join(EXPORT_DIRECTORY, filename);
   const headers = ['Member Name', 'Time-In', 'Time-Out'];
-  const dataProps = ['name', 'timeIn', 'timeOut'];
+  const dataProps = ['memberName', 'timeIn', 'timeOut'];
 
   memberAttendances.sort((a, b) => {
     const leftDate = new Date(a.timeIn);
@@ -141,7 +117,7 @@ exportEventMembers = async (req, res) => {
 
   exportToExcel(fullPath, headers, dataProps, memberAttendances);
 
-  res.download(fullPath, filename);
+  //res.download(fullPath, filename);
 };
 
 module.exports = {

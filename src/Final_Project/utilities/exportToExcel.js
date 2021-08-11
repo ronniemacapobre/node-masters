@@ -27,8 +27,12 @@ const exportToExcel = (fullPath, headers, dataProps, data) => {
   // Add data
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < dataProps.length; j++) {
+      let cellData = data[i][dataProps[j]];
+      if (cellData instanceof Date)
+        cellData = `${cellData.toLocaleDateString()} ${cellData.toLocaleTimeString()}`;
+
       ws.cell(i + 2, j + 1)
-        .string(data[i][dataProps[j]] ?? 'null')
+        .string(cellData ?? 'null')
         .style(bodyStyle);
     }
   }

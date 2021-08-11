@@ -113,7 +113,7 @@ Content-Type: application/json
 GET http://localhost:3000/events/search?eventName=master&dateStart=2021_07_04&dateEnd=2021_08_10
 
 ### Search Events with valid start and end date
-GET http://localhost:3000/events/search?dateStart=2021_07_01&dateEnd=2021_08_01
+GET http://localhost:3000/events/search?dateStart=2021_07_01&dateEnd=2021_10_01
 
 ### Search Events with event name only
 GET http://localhost:3000/events/search?eventName=master
