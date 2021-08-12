@@ -68,7 +68,11 @@ exports.isEventIdExists = async (req, res, next) => {
   const { eventId } = req.body;
   const event = await eventDataAccess.getEventById(eventId);
 
-  if (!event) return res.status(404).send('Event not found');
+  if (!event)
+    return next({
+      statusCode: 404,
+      errorMessage: 'Event not found',
+    });
 
   next();
 };
@@ -76,7 +80,11 @@ exports.isEventIdExists = async (req, res, next) => {
 exports.isMemberExists = async (req, res, next) => {
   const { memberId } = req.body;
   const member = await memberDataAccess.getMemberById(memberId);
-  if (!member) return res.status(404).send('Member not found');
+  if (!member)
+    return next({
+      statusCode: 404,
+      errorMessage: 'Member not found',
+    });
 
   next();
 };
@@ -84,7 +92,11 @@ exports.isMemberExists = async (req, res, next) => {
 exports.isAttendanceExists = async (req, res, next) => {
   const attendanceId = req.body.attendanceId || req.params.id;
   const attendance = await attendanceDataAccess.getAttendanceById(attendanceId);
-  if (!attendance) return res.status(404).send('Attendance Id not found');
+  if (!attendance)
+    return next({
+      statusCode: 404,
+      errorMessage: 'Attendance Id not found',
+    });
 
   next();
 };

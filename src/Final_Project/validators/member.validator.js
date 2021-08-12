@@ -1,10 +1,6 @@
 const { body, query } = require('express-validator');
 const { parseDateTime } = require('../utilities/helpers');
-const {
-  eventDataAccess,
-  memberDataAccess,
-  attendanceDataAccess,
-} = require('../dataAccess');
+const { memberDataAccess, attendanceDataAccess } = require('../dataAccess');
 
 exports.validateMemberReq = [
   body('memberName')
@@ -62,7 +58,11 @@ exports.isMemberIdExists = async (req, res, next) => {
   const memberId = req?.body?.memberId || req?.params?.id;
   const member = await memberDataAccess.getMemberById(memberId);
 
-  if (!member) return res.status(404).send('Member not found');
+  if (!member)
+    return next({
+      statusCode: 404,
+      errorMessage: 'Member not found',
+    });
 
   next();
 };
@@ -71,13 +71,12 @@ exports.validateEventAttendances = async (req, res, next) => {
   const memberId = req.params.id;
   const attendances = await attendanceDataAccess.getByMemberId(memberId);
 
-  if (attendances && attendances.length > 0) {
-    return res
-      .status(400)
-      .send(
-        `Unable to delete event because there are member attendance in it.`
-      );
-  }
+  if (attendances && attendances.length > 0)
+    return next({
+      statusCode: 400,
+      errorMessage:
+        'Unable to delete event because there are member attendance in it.',
+    });
 
   next();
 };

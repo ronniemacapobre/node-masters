@@ -113,7 +113,11 @@ exports.isEventIdExists = async (req, res, next) => {
   const eventId = req?.body?.eventId || req?.params?.id || req?.query?.eventId;
   const event = await eventDataAccess.getEventById(eventId);
 
-  if (!event) return res.status(404).send('Event not found');
+  if (!event)
+    return next({
+      statusCode: 404,
+      errorMessage: 'Event not found',
+    });
 
   next();
 };
@@ -122,13 +126,12 @@ exports.validateMemberAttendances = async (req, res, next) => {
   const eventId = req.params.id;
   const attendances = await attendanceDataAccess.getByEventId(eventId);
 
-  if (attendances && attendances.length > 0) {
-    return res
-      .status(400)
-      .send(
-        `Unable to delete event because there are member attendance in it.`
-      );
-  }
+  if (attendances && attendances.length > 0)
+    return next({
+      statusCode: 400,
+      errorMessage:
+        'Unable to delete event because there are member attendance in it.',
+    });
 
   next();
 };
