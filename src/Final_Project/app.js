@@ -11,6 +11,14 @@ app.use('/members', memberRouter);
 app.use('/attendance', attendanceRouter);
 app.use((err, req, res, next) => {
   const { statusCode, errorMessage } = err;
+
+  if (!statusCode)
+    return res
+      .status(500)
+      .send(
+        'Oopps! Something went wrong to the app. Please contact administrator.'
+      );
+
   res.status(statusCode).send(errorMessage);
 });
 

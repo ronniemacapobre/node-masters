@@ -1,4 +1,6 @@
 const xl = require('excel4node');
+const path = require('path');
+const fs = require('fs');
 
 const exportToExcel = (fullPath, headers, dataProps, data) => {
   const wb = new xl.Workbook();
@@ -36,6 +38,9 @@ const exportToExcel = (fullPath, headers, dataProps, data) => {
         .style(bodyStyle);
     }
   }
+
+  const directory = path.dirname(fullPath);
+  if (!fs.existsSync(fullPath)) fs.mkdirSync(directory);
 
   // Save
   wb.write(fullPath);

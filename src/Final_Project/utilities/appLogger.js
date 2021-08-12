@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const LOG_FILENAME = './src/Final_Project/logs/AttendanceMonitoryLogs';
 
@@ -22,8 +23,11 @@ const appLogger = (req, res, next) => {
   const body = JSON.stringify(req.body);
 
   const filename = getLogFilename();
-  const log = `${endpoint} | ${headers} | ${body}`;
+  const directory = path.dirname(filename);
 
+  if (!fs.existsSync(directory)) fs.mkdirSync(directory);
+
+  const log = `${endpoint} | ${headers} | ${body}`;
   fs.appendFile(filename, `${log}\n`, (err) => {
     if (err) console.log(err);
   });
